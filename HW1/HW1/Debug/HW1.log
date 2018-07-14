@@ -1,0 +1,4 @@
+﻿  processString.cpp
+gtestd.lib(gtest-all.obj) : warning LNK4099: 找不到 PDB 'gtest.pdb' (有 'gtestd.lib(gtest-all.obj)' 或位於 'C:\Users\ely85\Desktop\windows-programming-YiLin1010\HW1\Debug\gtest.pdb')，當做沒有偵錯資訊，連結物件
+  HW1.vcxproj -> C:\Users\ely85\Desktop\windows-programming-YiLin1010\HW1\Debug\HW1.exe
+  HW1.vcxproj -> C:\Users\ely85\Desktop\windows-programming-YiLin1010\HW1\Debug\HW1.pdb (Partial PDB)

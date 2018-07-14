@@ -16,8 +16,56 @@ using namespace std;
 //       -1 if exception occur (ex. string containing non-digit character)
 int getAscendingStr(string& inputStr)
 {
-	
-	/// Please fill your code here
+	int i, j = 0, num = 0, sign = 0, temp = 0, next = 0;
+	int arr[32];
+	int len = inputStr.length();
+	stringstream ss;
+	string str;
+
+	for (i = 0; i < len; i++) {
+		if ((inputStr[i] > '9' || inputStr[i] < '0') && inputStr[i] != ' ' && inputStr[i] != '-')
+			return -1;
+
+		//digit of a number
+		if (inputStr[i] != ' ') {
+			if (inputStr[i] == '-') { sign = 1; continue; }
+
+			if (num == 0)
+				num += inputStr[i] - '0';
+			else {
+				num *= 10;
+				num += inputStr[i] - '0';
+			}
+		}
+
+		//a new number
+		if (inputStr[i] == ' ' || i + 1 == inputStr.size()) {
+			if (sign == 1)	num *= -1;
+
+			arr[j] = num;
+			j++;
+			num = 0;	sign = 0;
+		}
+	}
+
+	//the last one
+	for (i = 1; i < j; i++) {
+		temp = arr[i];
+		next = i;
+		while ((arr[next - 1] > temp) && next > 0) {
+			arr[next] = arr[next - 1];
+			next--;
+		}
+		arr[next] = temp;
+	}
+
+	//int array 2 string
+	inputStr.erase();
+	for (i = 0; i < j; i++) {
+		ss.clear();	ss << arr[i];	ss >> str;
+		inputStr += str;
+		if (i + 1 != j) inputStr += " ";
+	}
 
 
 	return 0;
@@ -36,6 +84,34 @@ int getAscendingStr(string& inputStr)
 //          (return vector size should be 0)
 int solveQ(vector<double> &x, double a, double b, double c)
 {
+	double delta, x1, x2;
+	delta = pow(b, 2) - 4 * a * c;
+
+	//two solutions
+	if (delta > 0) {
+		x1 = ((-1 * b) + sqrt(pow(b, 2) - 4 * a * c)) / 2 * a;
+		x2 = ((-1 * b) - sqrt(pow(b, 2) - 4 * a * c)) / 2 * a;
+
+		//cout << "x1 : " << x1 << endl;
+		//cout << "x2 : " << x2 << endl;
+		x.push_back(x1);
+		x.push_back(x2);
+		return 1;
+	}
+
+	//complex solutions
+	else if (delta < 0) {
+		return -1;
+	}
+
+	//one solution
+	else {
+		x1 = ((-1 * b) + sqrt(pow(b, 2) - 4 * a * c)) / 2 * a;
+
+		//cout << "x1 : " << x1 << endl;
+		x.push_back(x1);
+		return 0;
+	}
 
 	return 0;
 }
